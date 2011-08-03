@@ -3,3 +3,8 @@ Revision history for Perl extension Net::SMS::RoutoMessaging
 0.01      2011-08-01 Oslo/Norway
 
     - Initial CPAN release. Functional.
+
+
+0.02      2011-08-03 Oslo/Norway
+
+    - Removed some unnessesary dependencies in dist.ini
