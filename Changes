@@ -8,3 +8,8 @@ Revision history for Perl extension Net::SMS::RoutoMessaging
 0.02      2011-08-03 Oslo/Norway
 
     - Removed some unnessesary dependencies in dist.ini
+
+
+0.03      2011-08-04 Oslo/Norway
+
+    - Changed to use NewSMSsend instead of SMSsend, as it should be better and support utf8
