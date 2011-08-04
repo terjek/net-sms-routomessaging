@@ -10,7 +10,7 @@ use HTTP::Request::Common;
 use LWP::UserAgent;
 
 use constant {
-    PROVIDER => "https://smsc5.routotelecom.com/SMSsend",
+    PROVIDER => "https://smsc5.routotelecom.com/NewSMSsend",
     TIMEOUT  => 30
 };
 
