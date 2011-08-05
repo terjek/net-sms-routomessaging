@@ -13,3 +13,7 @@ Revision history for Perl extension Net::SMS::RoutoMessaging
 0.03      2011-08-04 Oslo/Norway
 
     - Changed to use NewSMSsend instead of SMSsend, as it should be better and support utf8
+
+0.04      2011-08-05 Oslo/Norway
+
+    - Added support to return the provider status message from send_sms
