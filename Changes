@@ -17,3 +17,7 @@ Revision history for Perl extension Net::SMS::RoutoMessaging
 0.04      2011-08-05 Oslo/Norway
 
     - Added support to return the provider status message from send_sms
+
+0.05      2011-08-05 Oslo/Norway
+
+    - Bah, typo
