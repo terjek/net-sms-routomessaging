@@ -52,7 +52,7 @@ sub send_sms {
         $return = 0;
     }
 
-    return wantarray ? $return : ($return, $res);
+    return wantarray ? ($return, $res) : $return;
 }
 
 1;
