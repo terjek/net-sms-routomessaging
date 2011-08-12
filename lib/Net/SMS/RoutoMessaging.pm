@@ -45,6 +45,7 @@ sub send_sms {
     }
 
     my $res = $resp->content;
+    chomp($res);
 
     my $return = 1;
     unless ($res =~ /^success/) {
@@ -52,7 +53,36 @@ sub send_sms {
         $return = 0;
     }
 
-    return wantarray ? ($return, $res) : $return;
+    if ($args{long_status}) {
+        return wantarray ? ($return, $res, status_message($res)) : $return;
+    }
+    else {
+        return wantarray ? ($return, $res) : $return;
+    }
+}
+
+sub status_message {
+    my ($status) = @_;
+
+    my %desc = (
+        success           => 'sending successful',
+        error             => 'not all required parameters are present',
+        auth_failed       => 'incorrect username and/or password and/or not allowed IP address',
+        wrong_number      => 'the number contains non-numeric characters',
+        not_allowed       => 'you are not allowed to send to this number',
+        too_many_numbers  => 'sending to more than 10 numbers per request',
+        no_message        => 'the message body is empty',
+        too_long          => 'message is too long',
+        wrong_type        => 'an incorrect message type was selected',
+        wrong_message     => 'vCalendar or VCard contains wrong message',
+        wrong_format      => 'the wrong message format was selected',
+        bad_operator      => 'wrong operator code',
+        failed            => 'internal error',
+        sys_error         => 'the system error',
+        'No Credits Left' => 'user has no credits'
+    );
+
+    return $desc{$status} || 'unknown or empty status';
 }
 
 1;
@@ -69,15 +99,26 @@ __END__
   );
 
   # Send a message
+  my ($sent, $status) = $sms->send_sms(
+      message => "All your base are belong to us",
+      number  => '1234567890',
+  );
+
+  $sent will contain a true / false if the sending worked,
+  $status will contain the status message from the provider.
+
+  # If you just want a true / false if it workes, use :
   my $sent = $sms->send_sms(
       message => "All your base are belong to us",
       number  => '1234567890',
   );
 
-  # If you also want the status message from the provider
-  my ($sent, $status) = $sms->send_sms(
+  # If you want a better description of the status message, use the
+  # long_status parameter
+  my ($sent, $status, $desc) = $sms->send_sms(
       message => "All your base are belong to us",
       number  => '1234567890',
+      long_status => 1,
   );
 
   if ($sent) {
@@ -99,7 +140,7 @@ Perl module to send SMS messages through the HTTP API provided by RoutoMessaging
 
 new( username => 'testuser', password => 'testpass' )
 
-Nothing fancy. You need to supply your username and password 
+Nothing fancy. You need to supply your username and password
 in the constructor, or it will complain loudly.
 
 =head2 send_sms
@@ -117,7 +158,8 @@ Phone number should be given with only digits. No "+" or spaces, like this:
 
 =back
 
-Returns a status message. The message is "success" if the server has accepted your query. It does not mean that the message has been delivered.
+Returns a true / false value and a status message. The message is "success" if the server has accepted your query. It does not mean that the message has been delivered.
+If the long_status argument is set, then it also returns a long description as the third value.
 
 =head1 SEE ALSO
 
