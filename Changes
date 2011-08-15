@@ -1,5 +1,9 @@
 Revision history for Perl extension Net::SMS::RoutoMessaging
 
+0.07      2011-08-15 Oslo/Norway
+
+    - Added LWP::UserAgent in pre-requisites.
+
 0.06      2011-08-12 Oslo/Norway
 
     - Added long decription on send_sms
