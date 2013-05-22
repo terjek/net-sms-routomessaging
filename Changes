@@ -1,5 +1,9 @@
 Revision history for Perl extension Net::SMS::RoutoMessaging
 
+0.09      2013-05-22 Oslo/Norway
+
+    - Added perl 5.8 as prerequisite.
+
 0.08      2013-05-14 Oslo/Norway
 
     - Changed hostname for TeleSign Mobile messaging system.
